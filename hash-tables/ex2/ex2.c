@@ -152,12 +152,17 @@ char **reconstruct_trip(Ticket **tickets, int length)
   HashTable *ht = create_hash_table(length);
   char **route = malloc(length * sizeof(char *));
   /* YOUR CODE HERE */
+  // For each flight create a Linked Pair or source and destination. 
   for(int i = 0; i <length; i++){
-    Ticket *ticket = tickets[i];
-    hash_table_insert(ht, ticket->source, ticket->destination);
+    hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
   }
-  
-  
+  // Init start 
+  char *start = "NONE";
+  // Find start and loop through 
+  for(int i = 0; i <length; i++){
+    start = hash_table_retrieve(ht, start);
+    route[i] = start;
+    }
   return route;
 }
 
